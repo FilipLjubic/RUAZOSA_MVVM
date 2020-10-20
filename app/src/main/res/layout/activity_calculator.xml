@@ -86,7 +86,19 @@
                     android:text="C"
                     android:textSize="50px" />
 
-                <TextView
+    <Button
+        android:id="@+id/button_multiply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*" />
+
+    <Button
+        android:id="@+id/button_divide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/" />
+
+    <TextView
                     android:id="@+id/result_view"
                     android:layout_columnSpan="4"
                     android:layout_gravity="right"

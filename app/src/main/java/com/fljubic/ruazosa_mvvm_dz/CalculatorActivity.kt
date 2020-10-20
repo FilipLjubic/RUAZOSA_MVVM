@@ -7,18 +7,28 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_calculator.*
 
 
+
+// ⧫Proširenje aktivnosti
+// ■Dodavanje novih operacija na ’Layout’
+// ■Modifikacija slušača
+//
+// ⧫Opcionalni dio zadatka – prebaciti primjer u MVVM
+// ■Kreirati ViewModel
+// ■Po promjeni vrijednosti modela, propagirati rezultat na element prikaza koji prikazuje rezultat
+
+
 class CalculatorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculator)
 
-        var inOperatorMode: Boolean = false
-        var inResultMode: Boolean = false
+        var inOperatorMode = false
+        var inResultMode = false
 
 
         val numericButtonClicked = {view: View ->
             val buttonValue = (view as Button).text.toString()
-            if (!result_view.text.toString().equals("0") && !inOperatorMode && !inResultMode) {
+            if (result_view.text.toString() != "0" && !inOperatorMode && !inResultMode) {
                     result_view?.text = result_view?.text.toString() + buttonValue
             }
             else {
@@ -38,12 +48,12 @@ class CalculatorActivity : AppCompatActivity() {
 
         button_reset?.setOnClickListener {
             Calculator.reset()
-            result_view?.setText("0")
+            result_view?.text = "0"
         }
 
         button_comma?.setOnClickListener {
             if (!result_view?.text.toString().contains(char = '.')) {
-                result_view?.text = result_view?.text.toString() + ".";
+                result_view?.text = result_view?.text.toString() + "."
             }
         }
 
@@ -58,6 +68,8 @@ class CalculatorActivity : AppCompatActivity() {
         button_eight.setOnClickListener(numericButtonClicked)
         button_nine.setOnClickListener(numericButtonClicked)
 
+        button_multiply.setOnClickListener(operatorButtonClicked)
+        button_divide.setOnClickListener(operatorButtonClicked)
         button_plus.setOnClickListener(operatorButtonClicked)
         button_minus.setOnClickListener(operatorButtonClicked)
 
