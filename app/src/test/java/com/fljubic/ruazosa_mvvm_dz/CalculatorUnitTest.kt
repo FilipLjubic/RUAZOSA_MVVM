@@ -5,7 +5,9 @@ import org.junit.Test
 
 /**
  * Created by dejannovak on 25/03/2018.
+ * Expanded by filipljubic
  */
+
 class CalculatorUnitTest {
     @Test
     fun test_reset() {
@@ -98,6 +100,19 @@ class CalculatorUnitTest {
         Calculator.addNumber("300")
         Calculator.evaluate()
         Assert.assertEquals(Calculator.result, 0.00, 0.00)
+    }
+
+    // 2 + 2*3 = 8
+    @Test
+    fun test_simple() {
+        Calculator.reset()
+        Calculator.addNumber("2")
+        Calculator.addOperator("+")
+        Calculator.addNumber("2")
+        Calculator.addOperator("*")
+        Calculator.addNumber("3")
+        Calculator.evaluate()
+        Assert.assertEquals(Calculator.result, 8.00, 0.00)
     }
 
     // 13*2*5 = 130
@@ -202,6 +217,30 @@ class CalculatorUnitTest {
         Calculator.addNumber("5")
         Calculator.evaluate()
         Assert.assertEquals(Calculator.result, 103.30, 0.00)
+    }
+
+    // 13/0 + 5
+    @Test
+    fun test_divByZero_then_add() {
+        Calculator.reset()
+        Calculator.addNumber("13")
+        Calculator.addOperator("/")
+        Calculator.addNumber("0")
+        Calculator.addOperator("+")
+        Calculator.addNumber("5")
+        Calculator.evaluate()
+        Assert.assertEquals(Calculator.result, 0.0, 0.00)
+    }
+
+    // 13/0 = 0
+    @Test
+    fun test_divide_by_zero() {
+        Calculator.reset()
+        Calculator.addNumber("13")
+        Calculator.addOperator("/")
+        Calculator.addNumber("0")
+        Calculator.evaluate()
+        Assert.assertEquals(Calculator.result, 0.0, 0.00)
     }
 
 

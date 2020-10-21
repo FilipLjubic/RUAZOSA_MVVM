@@ -8,13 +8,6 @@ import kotlinx.android.synthetic.main.activity_calculator.*
 
 
 
-// ⧫Proširenje aktivnosti
-// ■Dodavanje novih operacija na ’Layout’
-// ■Modifikacija slušača
-//
-// ⧫Opcionalni dio zadatka – prebaciti primjer u MVVM
-// ■Kreirati ViewModel
-// ■Po promjeni vrijednosti modela, propagirati rezultat na element prikaza koji prikazuje rezultat
 
 
 class CalculatorActivity : AppCompatActivity() {
@@ -26,14 +19,17 @@ class CalculatorActivity : AppCompatActivity() {
         var inResultMode = false
 
 
+
         val numericButtonClicked = {view: View ->
             val buttonValue = (view as Button).text.toString()
             if (result_view.text.toString() != "0" && !inOperatorMode && !inResultMode) {
                     result_view?.text = result_view?.text.toString() + buttonValue
+
             }
             else {
                 inOperatorMode = false
                 inResultMode = false
+                // reset() i dodati u expression buttonValue
                 result_view?.text = buttonValue
             }
         }
@@ -47,10 +43,8 @@ class CalculatorActivity : AppCompatActivity() {
 
 
         button_reset?.setOnClickListener {
-            Calculator.reset()
             result_view?.text = "0"
         }
-
         button_comma?.setOnClickListener {
             if (!result_view?.text.toString().contains(char = '.')) {
                 result_view?.text = result_view?.text.toString() + "."

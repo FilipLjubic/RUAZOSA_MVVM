@@ -1,24 +1,22 @@
 package com.fljubic.ruazosa_mvvm_dz
 
+
 import kotlin.math.exp
 
 /**
  * Created by dejannovak on 24/03/2018.
  */
 
-//Proširiti kalkulator
-// ■Napraviti unit testove nad operacijama
-
 object Calculator {
 
     var result: Double = 0.0
-    private set
+        private set
 
     var expression: MutableList<String> = mutableListOf()
-    private set
+        private set
 
     var toSkip: Int = 0
-    private set
+        private set
 
     fun reset() {
         result = 0.0
@@ -71,12 +69,24 @@ object Calculator {
             if(inbetweenResult == 0.0){
                 when(expression[j]){
                     "*" -> inbetweenResult = expression[j-1].toDouble() * expression[j+1].toDouble()
-                    "/" -> inbetweenResult = expression[j-1].toDouble() / expression[j+1].toDouble()
+                    "/" -> {
+                        if (expression[j+1].toInt() == 0){
+                            reset()
+                            return 0.0
+                        }
+                        inbetweenResult = expression[j-1].toDouble() / expression[j+1].toDouble()
+                    }
                 }
             } else{
                 when(expression[j]){
                     "*" -> inbetweenResult = inbetweenResult * expression[j+1].toDouble()
-                    "/" -> inbetweenResult = inbetweenResult / expression[j+1].toDouble()
+                    "/" -> {
+                        if (expression[j+1].toInt() == 0){
+                            reset()
+                            return 0.0
+                        }
+                        inbetweenResult = inbetweenResult / expression[j+1].toDouble()
+                    }
                 }
             }
             toSkip += 2
@@ -95,18 +105,16 @@ object Calculator {
             throw Exception("Not a valid expression")
         }
 
-        // trenutno ne radi ako pocinje s mnozenjem/djeljenjem
-        if (expression[1] == "*" || expression[1] == "/"){
-            // -1 jer tamo pocinje od i + 2, tako da pocne od prvog operatora
+        if (expression[1] == "*" || expression[1] == "/") {
+            // -1 jer pocinje od i+2, tako da pocne zapravo od tog operatora
             result = calculateInbetweenResult(-1)
-        } else {
+        }else{
             result = expression[0].toDouble()
         }
 
-
-        var i = 1 + toSkip
+        var i = 1
         while(i < expression.count() - 1){
-             toSkip = 0
+            toSkip = 0
 
             when(expression[i]) {
                 "+" -> {
