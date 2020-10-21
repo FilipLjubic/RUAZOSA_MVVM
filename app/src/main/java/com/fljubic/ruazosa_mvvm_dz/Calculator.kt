@@ -95,9 +95,16 @@ object Calculator {
             throw Exception("Not a valid expression")
         }
 
-        result = expression[0].toDouble()
+        // trenutno ne radi ako pocinje s mnozenjem/djeljenjem
+        if (expression[1] == "*" || expression[1] == "/"){
+            // -1 jer tamo pocinje od i + 2, tako da pocne od prvog operatora
+            result = calculateInbetweenResult(-1)
+        } else {
+            result = expression[0].toDouble()
+        }
 
-        var i = 1
+
+        var i = 1 + toSkip
         while(i < expression.count() - 1){
              toSkip = 0
 
