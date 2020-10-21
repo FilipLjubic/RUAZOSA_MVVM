@@ -1,7 +1,6 @@
 package com.fljubic.ruazosa_mvvm_dz
 
 
-import kotlin.math.exp
 
 /**
  * Created by dejannovak on 24/03/2018.
@@ -15,8 +14,7 @@ object Calculator {
     var expression: MutableList<String> = mutableListOf()
         private set
 
-    var toSkip: Int = 0
-        private set
+    private var toSkip: Int = 0
 
     fun reset() {
         result = 0.0
@@ -25,7 +23,7 @@ object Calculator {
 
     fun addNumber(number: String) {
         try {
-            val num = number.toDouble()
+            number.toDouble()
         } catch (e: NumberFormatException) {
             throw Exception("Not valid number")
         }
@@ -105,11 +103,11 @@ object Calculator {
             throw Exception("Not a valid expression")
         }
 
-        if (expression[1] == "*" || expression[1] == "/") {
+        result = if (expression[1] == "*" || expression[1] == "/") {
             // -1 jer pocinje od i+2, tako da pocne zapravo od tog operatora
-            result = calculateInbetweenResult(-1)
+            calculateInbetweenResult(-1)
         }else{
-            result = expression[0].toDouble()
+            expression[0].toDouble()
         }
 
         var i = 1
